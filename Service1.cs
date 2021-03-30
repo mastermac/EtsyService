@@ -28,7 +28,7 @@ namespace EtsyService
         {
             WriteToFile("Service is started at " + DateTime.Now);
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-            timer.Interval = pollingTime; //number in milisecinds  
+            timer.Interval = 5000;
             timer.Enabled = true;
         }
         protected override void OnStop()
@@ -51,6 +51,7 @@ namespace EtsyService
             {
                 sendMail(false, ex.Message);
             }
+            timer.Interval = pollingTime;
         }
         public static void WriteToFile(string Message="")
         {
