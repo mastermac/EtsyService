@@ -1,0 +1,6 @@
+
+*.exe
+*.pdb
+*.InstallLog
+*.txt
+.vs/EtsyService/v16/.suo

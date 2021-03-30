@@ -38,6 +38,7 @@ namespace EtsyService
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
             WriteToFile("Starting Application @ " + DateTime.Now);
+            timer.Interval = pollingTime;
             try
             {
                 Listings = "";
@@ -51,7 +52,6 @@ namespace EtsyService
             {
                 sendMail(false, ex.Message);
             }
-            timer.Interval = pollingTime;
         }
         public static void WriteToFile(string Message="")
         {
