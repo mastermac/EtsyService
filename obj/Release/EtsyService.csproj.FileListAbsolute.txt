@@ -16,6 +16,7 @@ C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.exe
 C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.pdb
 C:\gitlab\EtsyService\bin\Release\EtsyService.exe.config
 C:\gitlab\EtsyService\bin\Release\EtsyService.exe
+C:\gitlab\EtsyService\bin\Release\EtsyService.pdb
 C:\gitlab\EtsyService\bin\Release\Newtonsoft.Json.dll
 C:\gitlab\EtsyService\bin\Release\RestSharp.dll
 C:\gitlab\EtsyService\bin\Release\System.Interactive.dll
@@ -29,4 +30,3 @@ C:\gitlab\EtsyService\obj\Release\EtsyService.csproj.CoreCompileInputs.cache
 C:\gitlab\EtsyService\obj\Release\EtsyService.csproj.CopyComplete
 C:\gitlab\EtsyService\obj\Release\EtsyService.exe
 C:\gitlab\EtsyService\obj\Release\EtsyService.pdb
-C:\gitlab\EtsyService\bin\Release\EtsyService.pdb

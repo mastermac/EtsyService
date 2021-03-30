@@ -190,3 +190,11 @@ Affected parameters are:
    logtoconsole = 
    logfile = C:\gitlab\EtsyService\bin\Release\EtsyService.InstallLog
    assemblypath = C:\gitlab\EtsyService\bin\Release\EtsyService.exe
+Uninstalling assembly 'C:\gitlab\EtsyService\bin\Release\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\bin\Release\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\bin\Release\EtsyService.exe
+Removing EventLog source SilverCityEtsyService.
+Service SilverCityEtsyService is being removed from the system...
+Service SilverCityEtsyService was successfully removed from the system.

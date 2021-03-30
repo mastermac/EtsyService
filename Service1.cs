@@ -17,7 +17,7 @@ namespace EtsyService
         System.Timers.Timer timer = new System.Timers.Timer(); // name space(using System.Timers;)  
         static string getDataStart = "0\":";
         static int pageLimit = 100;
-        private static int pollingTime = 1000 * 60 * 60 * 24; //Every 24 Hours
+        private static int pollingTime = 1000 * 60 * 60 * 6; //Every 24 Hours
         public static int requestCounter = 0;
         public static string Listings = "";
         public Service1()
@@ -53,7 +53,7 @@ namespace EtsyService
                 sendMail(false, ex.Message);
             }
         }
-        public static void WriteToFile(string Message="")
+        public static void WriteToFile(string Message = "")
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Logs";
             if (!Directory.Exists(path))
@@ -423,7 +423,7 @@ namespace EtsyService
 
                     IRestResponse response1 = client1.Execute(request1);
                     CheckRequestThrottleLimit();
-                    WriteToFile("Stock Item is Updated with Listing ID: " + listingId+" ("+sku+")");
+                    WriteToFile("Stock Item is Updated with Listing ID: " + listingId + " (" + sku + ")");
                     Listings = Listings + sku + ", ";
                     //WriteToFile(response1.Content);
                 }
@@ -468,13 +468,12 @@ namespace EtsyService
         {
 
             MailMessage msg = new MailMessage();
-            var fromAddress = new MailAddress("iammastermac@gmail.com", "Shubham Gupta");
-            const string fromPassword = "Mastermac@007";
+            var fromAddress = new MailAddress("noreply@silvercityonline.com", "Etsy Service");
+            const string fromPassword = "Silvercity@007";
 
             msg.From = fromAddress;
             msg.To.Add("sunny@mewarjewels.com");
             msg.CC.Add("Shubhamg836@gmail.com");
-            msg.Body = "";
             if (success)
             {
                 msg.Subject = "Etsy Refreshed at " + DateTime.UtcNow.ToString();
@@ -489,15 +488,16 @@ namespace EtsyService
 
             var smtp = new SmtpClient
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
+                Host = "mail.silvercityonline.com",
+                Port = 26,
+                EnableSsl = false,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = true,
                 Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
             };
+            WriteToFile("Mail Ready at " + DateTime.Now);
             smtp.Send(msg);
+            WriteToFile("Mail Sent at " + DateTime.Now);
         }
-
     }
 }
