@@ -1,0 +1,109 @@
+﻿Installing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Installing service SilverCityEtsyService...
+Service SilverCityEtsyService has been successfully installed.
+Creating EventLog source SilverCityEtsyService in log Application...
+Committing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Installing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Installing service SilverCityEtsyService...
+Creating EventLog source SilverCityEtsyService in log Application...
+Rolling back assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Restoring event log to previous state for source SilverCityEtsyService.
+Uninstalling assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Removing EventLog source SilverCityEtsyService.
+Service SilverCityEtsyService is being removed from the system...
+Service SilverCityEtsyService was successfully removed from the system.
+Installing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Installing service SilverCityEtsyService...
+Service SilverCityEtsyService has been successfully installed.
+Creating EventLog source SilverCityEtsyService in log Application...
+Committing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Uninstalling assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Removing EventLog source SilverCityEtsyService.
+Service SilverCityEtsyService is being removed from the system...
+Service SilverCityEtsyService was successfully removed from the system.
+Installing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Installing service SilverCityEtsyService...
+Service SilverCityEtsyService has been successfully installed.
+Creating EventLog source SilverCityEtsyService in log Application...
+Committing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Uninstalling assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Removing EventLog source SilverCityEtsyService.
+Service SilverCityEtsyService is being removed from the system...
+Service SilverCityEtsyService was successfully removed from the system.
+Attempt to stop service SilverCityEtsyService.
+Installing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Installing service SilverCityEtsyService...
+Service SilverCityEtsyService has been successfully installed.
+Creating EventLog source SilverCityEtsyService in log Application...
+Committing assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Uninstalling assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Removing EventLog source SilverCityEtsyService.
+Service SilverCityEtsyService is being removed from the system...
+Service SilverCityEtsyService was successfully removed from the system.
+Attempt to stop service SilverCityEtsyService.
+Uninstalling assembly 'C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.InstallLog
+   assemblypath = C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+Removing EventLog source SilverCityEtsyService.
+Warning: The source SilverCityEtsyService is not registered on the local machine.
+Service SilverCityEtsyService is being removed from the system...
+Service SilverCityEtsyService was successfully removed from the system.
+Attempt to stop service SilverCityEtsyService.

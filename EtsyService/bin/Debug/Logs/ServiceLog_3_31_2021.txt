@@ -1,0 +1,84 @@
+Service is started at 3/31/2021 12:01:20 AM
+Starting Application @ 3/31/2021 12:01:25 AM
+Starting Application @ 3/31/2021 12:01:30 AM
+
+Active State Polling Started
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:01:35 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:01:40 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:01:45 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:01:50 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:01:55 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:00 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:05 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:10 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:15 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:20 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:26 AM
+
+Active State Polling Started
+Starting Application @ 3/31/2021 12:02:32 AM
+Service is stopped at 3/31/2021 12:02:35 AM
+Service is started at 3/31/2021 12:08:44 AM
+Service is stopped at 3/31/2021 12:32:38 AM
+Service is started at 3/31/2021 12:33:08 AM
+Starting Application @ 3/31/2021 12:33:08 AM
+
+Active State Polling Started
+Done for Page 1 @ 3/31/2021 12:34:07 AM
+Done for Page 2 @ 3/31/2021 12:34:56 AM
+Done for Page 3 @ 3/31/2021 12:35:57 AM
+Done for Page 4 @ 3/31/2021 12:36:50 AM
+Stock Item is Updated with Listing ID: 629068094
+Stock Item is Updated with Listing ID: 642891581
+Done for Page 5 @ 3/31/2021 12:37:49 AM
+Done for Page 6 @ 3/31/2021 12:38:48 AM
+Done for Page 7 @ 3/31/2021 12:39:47 AM
+Done for Page 8 @ 3/31/2021 12:40:46 AM
+Done for Page 9 @ 3/31/2021 12:41:32 AM
+Done for Page 10 @ 3/31/2021 12:41:36 AM
+
+Active State Polling Done
+
+SoldOut State Polling Started
+Done for Page 1 @ 3/31/2021 12:41:46 AM
+Done for Page 2 @ 3/31/2021 12:41:58 AM
+Done for Page 3 @ 3/31/2021 12:42:07 AM
+Done for Page 4 @ 3/31/2021 12:42:20 AM
+Done for Page 5 @ 3/31/2021 12:42:32 AM
+Done for Page 6 @ 3/31/2021 12:42:43 AM
+Done for Page 7 @ 3/31/2021 12:42:46 AM
+
+Sold Out State Polling Done
+
+Expired State Polling Started
+Done for Page 1 @ 3/31/2021 12:42:49 AM
+
+Expired State Polling Done
+
+InActive State Polling Started
+Done for Page 1 @ 3/31/2021 12:43:49 AM
+Done for Page 2 @ 3/31/2021 12:44:12 AM
+
+InActive State Polling Done

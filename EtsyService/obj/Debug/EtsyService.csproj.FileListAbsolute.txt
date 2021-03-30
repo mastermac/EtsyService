@@ -1,0 +1,3 @@
+C:\gitlab\EtsyService\EtsyService\bin\Debug\EtsyService.exe
+C:\gitlab\EtsyService\EtsyService\bin\Debug\Newtonsoft.Json.dll
+C:\gitlab\EtsyService\EtsyService\bin\Debug\RestSharp.dll

@@ -1,0 +1,16 @@
+C:\gitlab\EtsyService\EtsyService\bin\Release\EtsyService.exe.config
+C:\gitlab\EtsyService\EtsyService\bin\Release\EtsyService.exe
+C:\gitlab\EtsyService\EtsyService\bin\Release\EtsyService.pdb
+C:\gitlab\EtsyService\EtsyService\bin\Release\Newtonsoft.Json.dll
+C:\gitlab\EtsyService\EtsyService\bin\Release\RestSharp.dll
+C:\gitlab\EtsyService\EtsyService\bin\Release\System.Interactive.dll
+C:\gitlab\EtsyService\EtsyService\bin\Release\TinyOAuth1.dll
+C:\gitlab\EtsyService\EtsyService\bin\Release\Newtonsoft.Json.xml
+C:\gitlab\EtsyService\EtsyService\bin\Release\RestSharp.xml
+C:\gitlab\EtsyService\EtsyService\bin\Release\System.Interactive.xml
+C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.ProjectInstaller.resources
+C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.csproj.GenerateResource.cache
+C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.csproj.CoreCompileInputs.cache
+C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.csproj.CopyComplete
+C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.exe
+C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.pdb
