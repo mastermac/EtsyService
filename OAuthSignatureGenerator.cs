@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EtsyService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -59,6 +60,25 @@ namespace EtsyService
             };
             return ConcatList(requestParametersForHeader, ",");
         }
+        public static OAuthProperties GetMultiProductAuthorizationHeaderValue(Uri uri, string productConfig, string price, string qty, string sku, string reqType = "PUT")
+        {
+            var nonce = GetNonce();
+            var timeStamp = GetTimeStamp();
+
+            var signature = GenerateSignatureMultiProduct(uri, reqType, consumerKey, consumerSecret, nonce, timeStamp, OAuthSignatureGenerator.SignatureMethod.HmacSha1, accessToken, accessTokenSecret, "1.0", productConfig, price, qty, sku);
+
+            return new OAuthProperties()
+            {
+                oauth_consumer_key = consumerKey,
+                oauth_token = accessToken,
+                oauth_signature_method = "HMAC-SHA1",
+                oauth_timestamp = timeStamp.ToString(),
+                oauth_nonce = nonce,
+                oauth_version = "1.0",
+                oauth_signature = signature
+            };
+        }
+
         private static string ConcatList(IEnumerable<string> source, string separator)
         {
             var sb = new StringBuilder();
@@ -73,6 +93,39 @@ namespace EtsyService
                     sb.Append(s);
                 }
             return sb.ToString();
+        }
+        public static string GenerateSignatureMultiProduct(Uri uri, string httpMethod, string consumerKey, string consumerSecret, string nonce, string timestamp, SignatureMethod signatureMethod, string token = null, string tokenSecret = null, string version = null, string productValue = "", string price = "", string qty = "", string sku = "")
+        {
+            if (signatureMethod == SignatureMethod.Plaintext) return HttpUtility.UrlEncode(string.Format("{0}&{1}", consumerSecret, tokenSecret));
+            List<KeyValuePair<string, string>> parameters = ConvertQueryStringToListOfKvp(uri.Query);
+            AddParameter(parameters, OAuthConsumerKey, consumerKey);
+            AddParameter(parameters, OAuthNonce, nonce);
+            AddParameter(parameters, OAuthSignatureMethod, "HMAC-SHA1");
+            AddParameter(parameters, OAuthTimestamp, timestamp);
+            if (!String.IsNullOrEmpty(productValue))
+                AddParameter(parameters, "products", productValue);
+            AddParameter(parameters, "price_on_property", price);
+            AddParameter(parameters, "quantity_on_property", qty);
+            AddParameter(parameters, "sku_on_property", sku);
+            if (!string.IsNullOrEmpty(token)) AddParameter(parameters, OAuthToken, token);
+            if (!string.IsNullOrWhiteSpace(version)) AddParameter(parameters, OAuthVersion, version);
+            parameters.Sort((x, y) => x.Key == y.Key ? string.Compare(x.Value, y.Value) : string.Compare(x.Key, y.Key));
+
+            var normalizedUrl = string.Format("{0}://{1}{2}{3}", uri.Scheme, uri.Host, (uri.Scheme == "http" && uri.Port == 80) || (uri.Scheme == "https" && uri.Port == 443) ? null : ":" + uri.Port, uri.AbsolutePath);
+            if (!String.IsNullOrEmpty(productValue))
+            {
+                parameters.RemoveAt(parameters.Count - 3);
+                parameters.Insert(7, new KeyValuePair<string, string>("products", SpecialUrlEncode(productValue).Replace("+", "%20")));
+
+                //parameters.Add(new KeyValuePair<string, string>("price_on_property", SpecialUrlEncode(price)));
+                //parameters.Add(new KeyValuePair<string, string>("quantity_on_property", SpecialUrlEncode(qty)));
+                //parameters.Add(new KeyValuePair<string, string>("sku_on_property", SpecialUrlEncode(sku)));
+            }
+            var normalizedRequestParameters = string.Join(null, parameters.Select(x => "&" + x.Key + "=" + x.Value)).TrimStart('&');
+
+            var signatureData = string.Format("{0}&{1}&{2}", httpMethod.ToUpper(), UrlEncode(normalizedUrl), UrlEncode(normalizedRequestParameters).Replace("%5C", ""));
+
+            return ComputeHasher(consumerSecret, tokenSecret, signatureData);
         }
 
         public static string GenerateSignature(Uri uri, string httpMethod, string consumerKey, string consumerSecret, string nonce, string timestamp, SignatureMethod signatureMethod, string token = null, string tokenSecret = null, string version = null, string productValue="")

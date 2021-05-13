@@ -8,6 +8,9 @@ namespace EtsyService.Models
     {
         public int count { get; set; } = 0;
         public Results results { get; set; }
+        public long price_on_property { get; set; }
+        public long quantity_on_property { get; set; }
+        public long sku_on_property { get; set; }
     }
     public class Results
     {
@@ -16,8 +19,10 @@ namespace EtsyService.Models
     public class Offering
     {
         public long offering_id { get; set; }
-        public Price price { get; set; }
+        public object price { get; set; }
         public int quantity { get; set; }
+        public int is_enabled { get; set; }
+        public int is_deleted { get; set; }
     }
     public class Price
     {
@@ -32,6 +37,7 @@ namespace EtsyService.Models
     public class Product
     {
         public long product_id { get; set; }
+        public string sku { get; set; }
         public List<object> property_values { get; set; }
         public List<Offering> offerings { get; set; }
     }

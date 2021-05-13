@@ -9,6 +9,7 @@ using EtsyService.Models;
 using System.Net;
 using System.Threading;
 using System.Net.Mail;
+using Newtonsoft.Json.Linq;
 
 namespace EtsyService
 {
@@ -35,6 +36,11 @@ namespace EtsyService
         {
             WriteToFile("Service is stopped at " + DateTime.Now);
         }
+        public void OnDebug()
+        {
+            OnStart(null);
+        }
+
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
             WriteToFile("Starting Application @ " + DateTime.Now);
@@ -110,36 +116,50 @@ namespace EtsyService
                 {
                     foreach (Listing listingItem in shopListing.results)
                     {
-                        if (IsSkuPresent(listingItem))
+                        if (IsSkuPresent(listingItem) || listingItem.sku.Count>1)
                         {
-                            //if (listingItem.sku[0] != "14YC371") continue;
-                            //if (!listingItem.description.ToLower().Contains("sku"))
-                            //{
-                            //    updateDescriptionWithSku(listingItem);
-                            //    continue;
-                            //}listingItem.sku[0]
-                            //continue;
-                            var client1 = new RestClient("https://www.silvercityonline.com/stock/src/scripts/getItemData.php?perPage=50&page=1&itemNo=" + listingItem.sku[0] + "&sdt=0000-00-00&edt=0000-00-00");
-                            var request1 = new RestRequest(Method.GET);
-                            IRestResponse response1 = client1.Execute(request1);
-                            CheckRequestThrottleLimit();
-                            if (response1.Content.Contains(getDataStart))
+                            if (listingItem.sku.Count > 1)
                             {
-                                int startInd = response1.Content.IndexOf(getDataStart);
-                                string substr = response1.Content.Substring(startInd + getDataStart.Length);
-                                ItemData stockItem = new ItemData();
-                                stockItem = JsonConvert.DeserializeObject<ItemData>(substr.Substring(0, substr.IndexOf("}") + 1));
-                                if (listingItem.state == "edit" && int.Parse(stockItem.curStock) > 0)
+                                if (listingItem.state == "edit" || listingItem.state == "active")
                                 {
-                                    changeInventoryState(listingItem.listing_id, "active");
-                                    updateInventory(listingItem.listing_id, stockItem.sellPrice, stockItem.curStock, stockItem.itemNo);
+                                    if (listingItem.state == "edit")
+                                        changeInventoryState(listingItem.listing_id, "active");
+                                    updateMultiItemInventory(listingItem.listing_id);
                                 }
-                                else if (int.Parse(stockItem.curStock) != listingItem.quantity || double.Parse(listingItem.price) != double.Parse(stockItem.sellPrice))
+                            }
+                            else
+                            {
+                                //if (listingItem.sku[0] != "14YC238") continue;
+                                //if (!listingItem.description.ToLower().Contains("sku"))
+                                //{
+                                //    updateDescriptionWithSku(listingItem);
+                                //    continue;
+                                //}listingItem.sku[0]
+                                //continue;
+                                var client1 = new RestClient("https://www.silvercityonline.com/stock/src/scripts/getItemData.php?perPage=50&page=1&itemNo=" + listingItem.sku[0] + "&sdt=0000-00-00&edt=0000-00-00");
+                                var request1 = new RestRequest(Method.GET);
+                                IRestResponse response1 = client1.Execute(request1);
+                                CheckRequestThrottleLimit();
+                                if (response1.Content.Contains(getDataStart))
                                 {
-                                    if (int.Parse(stockItem.curStock) > 0)
+                                    int startInd = response1.Content.IndexOf(getDataStart);
+                                    string substr = response1.Content.Substring(startInd + getDataStart.Length);
+                                    ItemData stockItem = new ItemData();
+                                    stockItem = JsonConvert.DeserializeObject<ItemData>(substr.Substring(0, substr.IndexOf("}") + 1));
+                                    if (listingItem.state == "edit" && int.Parse(stockItem.curStock) > 0)
+                                    {
+                                        changeInventoryState(listingItem.listing_id, "active");
                                         updateInventory(listingItem.listing_id, stockItem.sellPrice, stockItem.curStock, stockItem.itemNo);
-                                    else if (listingItem.state != "edit")
-                                        changeInventoryState(listingItem.listing_id, "inactive");
+                                    }
+                                    else if (int.Parse(stockItem.curStock) != listingItem.quantity || double.Parse(listingItem.price) != double.Parse(stockItem.sellPrice))
+                                    {
+                                        if (double.Parse(stockItem.sellPrice) == 0)
+                                            stockItem.sellPrice = listingItem.price;
+                                        if (int.Parse(stockItem.curStock) > 0)
+                                            updateInventory(listingItem.listing_id, stockItem.sellPrice, stockItem.curStock, stockItem.itemNo);
+                                        else if (listingItem.state != "edit")
+                                            changeInventoryState(listingItem.listing_id, "inactive");
+                                    }
                                 }
                             }
                         }
@@ -155,6 +175,88 @@ namespace EtsyService
             WriteToFile();
             WriteToFile("Active State Polling Done");
         }
+        static ItemData getItemDataFromPanel(string sku)
+        {
+            ItemData stockItem = new ItemData();
+            var client1 = new RestClient("https://www.silvercityonline.com/stock/src/scripts/getItemData.php?perPage=50&page=1&itemNo=" + sku + "&sdt=0000-00-00&edt=0000-00-00");
+            var request1 = new RestRequest(Method.GET);
+            IRestResponse response1 = client1.Execute(request1);
+            if (response1.Content.Contains(getDataStart))
+            {
+                int startInd = response1.Content.IndexOf(getDataStart);
+                string substr = response1.Content.Substring(startInd + getDataStart.Length);
+                stockItem = JsonConvert.DeserializeObject<ItemData>(substr.Substring(0, substr.IndexOf("}") + 1));
+            }
+            return stockItem;
+        }
+        static void updateMultiItemInventory(int listingId)
+        {
+            var client = new RestClient();
+            client.BaseUrl = new Uri("https://openapi.etsy.com/v2/listings/" + listingId + "/inventory?write_missing_inventory=true");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "OAuth " + OAuthSignatureGenerator.GetAuthorizationHeaderValue(client.BaseUrl, "", "GET"));
+            IRestResponse response = client.Execute(request);
+            try
+            {
+                string sku = "";
+                var inventoryVariations = JsonConvert.DeserializeObject<GetInventory>(response.Content);
+                dynamic data = JObject.Parse(response.Content);
+
+                foreach (var item in data.results.price_on_property.Children())
+                    inventoryVariations.price_on_property = item.Value;
+                foreach (var item in data.results.quantity_on_property.Children())
+                    inventoryVariations.quantity_on_property = item.Value;
+                foreach (var item in data.results.sku_on_property.Children())
+                    inventoryVariations.sku_on_property = item.Value;
+
+                UpdateInventory1 updateInventoryList = new UpdateInventory1();
+                foreach (Product p in inventoryVariations.results.products)
+                {
+                    ItemData latestProductData = getItemDataFromPanel(p.sku);
+
+                    if (!String.IsNullOrEmpty(latestProductData.itemNo))
+                    {
+                        if (double.Parse(latestProductData.sellPrice) > 0)
+                            p.offerings[0].price = latestProductData.sellPrice;
+
+                        if (int.Parse(latestProductData.curStock) > 0)
+                            p.offerings[0].quantity = int.Parse(latestProductData.curStock);
+                        else
+                            p.offerings[0].quantity = 0;
+                    }
+
+                    sku += p.sku + ",";
+                    updateInventoryList.Products.Add(p);
+                }
+
+                var client1 = new RestClient("https://openapi.etsy.com/v2/listings/" + listingId + "/inventory");
+                var request1 = new RestRequest(Method.PUT);
+                request1.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+                OAuthProperties properties = OAuthSignatureGenerator.GetMultiProductAuthorizationHeaderValue(client1.BaseUrl, JsonConvert.SerializeObject(updateInventoryList.Products), JsonConvert.SerializeObject(inventoryVariations.price_on_property), JsonConvert.SerializeObject(inventoryVariations.quantity_on_property), JsonConvert.SerializeObject(inventoryVariations.sku_on_property), "PUT");
+                request1.AddParameter("oauth_consumer_key", properties.oauth_consumer_key);
+                request1.AddParameter("oauth_token", properties.oauth_token);
+                request1.AddParameter("oauth_signature_method", properties.oauth_signature_method);
+                request1.AddParameter("oauth_timestamp", properties.oauth_timestamp);
+                request1.AddParameter("oauth_nonce", properties.oauth_nonce);
+                request1.AddParameter("oauth_version", properties.oauth_version);
+                request1.AddParameter("oauth_signature", properties.oauth_signature);
+
+                request1.AddParameter("products", JsonConvert.SerializeObject(updateInventoryList.Products));
+                request1.AddParameter("price_on_property", JsonConvert.SerializeObject(inventoryVariations.price_on_property));
+                request1.AddParameter("quantity_on_property", JsonConvert.SerializeObject(inventoryVariations.quantity_on_property));
+                request1.AddParameter("sku_on_property", JsonConvert.SerializeObject(inventoryVariations.sku_on_property));
+
+                IRestResponse response1 = client1.Execute(request1);
+                CheckRequestThrottleLimit();
+                WriteToFile("Stock Item is Updated with Listing ID: " + listingId + " (" + sku + ")");
+                Listings = Listings + sku + ", ";
+            }
+            catch (Exception e)
+            {
+                WriteToFile("Error for " + listingId + "-----" + e.StackTrace);
+            }
+        }
+
         static bool IsSkuPresent(Listing listing)
         {
             if (listing.sku.Count == 1)
@@ -343,6 +445,8 @@ namespace EtsyService
                     {
                         if (IsSkuPresent(transaction.Listing) && !String.IsNullOrEmpty(transaction.Listing.state) && transaction.Listing.state == "sold_out")
                         {
+                            if (transaction.Listing.sku[0] != "14YC238") continue;
+
                             var client1 = new RestClient("https://www.silvercityonline.com/stock/src/scripts/getItemData.php?perPage=50&page=1&itemNo=" + transaction.Listing.sku[0] + "&sdt=0000-00-00&edt=0000-00-00");
                             var request1 = new RestRequest(Method.GET);
                             IRestResponse response1 = client1.Execute(request1);
@@ -466,38 +570,62 @@ namespace EtsyService
 
         static void sendMail(bool success = true, string detail = "")
         {
-
-            MailMessage msg = new MailMessage();
-            var fromAddress = new MailAddress("noreply@silvercityonline.com", "Etsy Service");
-            const string fromPassword = "Silvercity@007";
-
-            msg.From = fromAddress;
-            msg.To.Add("sunny@mewarjewels.com");
-            msg.CC.Add("Shubhamg836@gmail.com");
-            if (success)
+            try
             {
-                msg.Subject = "Etsy Refreshed at " + DateTime.UtcNow.ToString();
-                msg.Body = Listings;
+                Config items = new Config();
+                using (StreamReader r = new StreamReader(AppDomain.CurrentDomain.BaseDirectory+"\\config.json"))
+                {
+                    string json = r.ReadToEnd();
+                    items = JsonConvert.DeserializeObject<Config>(json);
+                }
+                if (!items.sendMail && success)
+                    return;
+
+                MailMessage msg = new MailMessage();
+                var fromAddress = new MailAddress("noreply@silvercityonline.com", "Etsy Service");
+                const string fromPassword = "Silvercity@007";
+
+                msg.From = fromAddress;
+
+                foreach (var email in items.mailRecipients)
+                    msg.To.Add(email);
+
+                if (success)
+                {
+                    msg.Subject = "Etsy Refreshed at " + DateTime.UtcNow.ToString();
+                    msg.Body = Listings;
+                }
+
+                if (!success)
+                {
+                    msg.Subject = "Etsy Error at " + DateTime.UtcNow.ToString();
+                    msg.Body = Listings + "-------------------" + detail;
+                }
+
+                var smtp = new SmtpClient
+                {
+                    Host = "mail.silvercityonline.com",
+                    Port = 26,
+                    EnableSsl = false,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = true,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                WriteToFile("Mail Ready at " + DateTime.Now);
+                smtp.Send(msg);
+                WriteToFile("Mail Sent at " + DateTime.Now);
+
             }
-
-            if (!success)
+            catch(Exception e)
             {
-                msg.Subject = "Etsy Error at " + DateTime.UtcNow.ToString();
-                msg.Body = Listings + "-------------------" + detail;
+                WriteToFile(e.Message + " " + e.InnerException);
             }
-
-            var smtp = new SmtpClient
-            {
-                Host = "mail.silvercityonline.com",
-                Port = 26,
-                EnableSsl = false,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = true,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            WriteToFile("Mail Ready at " + DateTime.Now);
-            smtp.Send(msg);
-            WriteToFile("Mail Sent at " + DateTime.Now);
         }
+    }
+
+    internal class Config
+    {
+        public bool sendMail;
+        public List<string> mailRecipients;
     }
 }

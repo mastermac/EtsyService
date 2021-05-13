@@ -14,6 +14,7 @@ C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.csproj.CoreCompileInpu
 C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.csproj.CopyComplete
 C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.exe
 C:\gitlab\EtsyService\EtsyService\obj\Release\EtsyService.pdb
+C:\gitlab\EtsyService\bin\Release\config.json
 C:\gitlab\EtsyService\bin\Release\EtsyService.exe.config
 C:\gitlab\EtsyService\bin\Release\EtsyService.exe
 C:\gitlab\EtsyService\bin\Release\EtsyService.pdb
