@@ -408,16 +408,7 @@
             <param name="source">Source sequence.</param>
             <returns>true if the sequence is empty; false otherwise.</returns>
         </member>
-        <member name="M:System.Linq.EnumerableEx.Max``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Returns the maximum value in the enumerable sequence by using the specified comparer to compare values.
-            </summary>
-            <typeparam name="TSource">Source sequence element type.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="comparer">Comparer used to determine the maximum value.</param>
-            <returns>Maximum value in the sequence.</returns>
-        </member>
-        <member name="M:System.Linq.EnumerableEx.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:System.Linq.EnumerableEx.MaxByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Returns the elements with the maximum key value by using the default comparer to compare key values.
             </summary>
@@ -427,7 +418,7 @@
             <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
             <returns>List with the elements that share the same maximum key value.</returns>
         </member>
-        <member name="M:System.Linq.EnumerableEx.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+        <member name="M:System.Linq.EnumerableEx.MaxByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
             <summary>
             Returns the elements with the minimum key value by using the specified comparer to compare key values.
             </summary>
@@ -508,16 +499,7 @@
             </param>
             <returns>Sequence resulting from applying the selector function to the memoized view over the source sequence.</returns>
         </member>
-        <member name="M:System.Linq.EnumerableEx.Min``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Returns the minimum value in the enumerable sequence by using the specified comparer to compare values.
-            </summary>
-            <typeparam name="TSource">Source sequence element type.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="comparer">Comparer used to determine the minimum value.</param>
-            <returns>Minimum value in the sequence.</returns>
-        </member>
-        <member name="M:System.Linq.EnumerableEx.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:System.Linq.EnumerableEx.MinByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Returns the elements with the minimum key value by using the default comparer to compare key values.
             </summary>
@@ -527,7 +509,7 @@
             <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
             <returns>List with the elements that share the same minimum key value.</returns>
         </member>
-        <member name="M:System.Linq.EnumerableEx.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+        <member name="M:System.Linq.EnumerableEx.MinByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
             <summary>
             Returns the elements with the minimum key value by using the specified comparer to compare key values.
             </summary>

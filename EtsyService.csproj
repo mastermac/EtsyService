@@ -57,8 +57,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Interactive, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>packages\System.Interactive.5.0.0\lib\net45\System.Interactive.dll</HintPath>
+    <Reference Include="System.Interactive, Version=6.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>packages\System.Interactive.6.0.1\lib\netstandard2.0\System.Interactive.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />

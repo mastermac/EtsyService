@@ -151,7 +151,7 @@ namespace EtsyService
                                         changeInventoryState(listingItem.listing_id, "active");
                                         updateInventory(listingItem.listing_id, stockItem.sellPrice, stockItem.curStock, stockItem.itemNo);
                                     }
-                                    else if (int.Parse(stockItem.curStock) != listingItem.quantity || double.Parse(listingItem.price) != double.Parse(stockItem.sellPrice))
+                                    else if (int.Parse(stockItem.curStock) != listingItem.quantity || double.Parse(listingItem.price) != double.Parse(stockItem.sellPrice)*1.15)
                                     {
                                         if (double.Parse(stockItem.sellPrice) == 0)
                                             stockItem.sellPrice = listingItem.price;
@@ -217,7 +217,7 @@ namespace EtsyService
                     if (!String.IsNullOrEmpty(latestProductData.itemNo))
                     {
                         if (double.Parse(latestProductData.sellPrice) > 0)
-                            p.offerings[0].price = latestProductData.sellPrice;
+                            p.offerings[0].price = (Convert.ToDouble(latestProductData.sellPrice) * 1.15).ToString();
 
                         if (int.Parse(latestProductData.curStock) > 0)
                             p.offerings[0].quantity = int.Parse(latestProductData.curStock);
@@ -259,20 +259,29 @@ namespace EtsyService
 
         static bool IsSkuPresent(Listing listing)
         {
-            if (listing.sku.Count == 1)
-                return true;
-            else if (listing.sku.Count == 0)
+            try
             {
-                if (listing.description.ToLower().Contains("sku"))
-                {
-                    int i = listing.description.ToLower().LastIndexOf("sku");
-                    string subDesc = listing.description.Substring(i);
-                    i = subDesc.IndexOf("|");
-                    subDesc = subDesc.Substring(i + 1);
-                    i = subDesc.IndexOf("|");
-                    listing.sku.Add(subDesc.Substring(0, i));
+                if (listing.price == null)
+                    return false;
+                if (listing.sku.Count >= 1)
                     return true;
+                else if (listing.sku.Count == 0)
+                {
+                    if (listing.description.ToLower().Contains("sku"))
+                    {
+                        int i = listing.description.ToLower().LastIndexOf("sku");
+                        string subDesc = listing.description.Substring(i);
+                        i = subDesc.IndexOf("|");
+                        subDesc = subDesc.Substring(i + 1);
+                        i = subDesc.IndexOf("|");
+                        listing.sku.Add(subDesc.Substring(0, i));
+                        return true;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                return false;
             }
             return false;
         }
@@ -513,7 +522,7 @@ namespace EtsyService
                     updateInventory.product_id = inventoryVariations.results.products[0].product_id;
                     updateInventory.offerings.Add(new UpdateOffering());
                     updateInventory.offerings[0].offering_id = inventoryVariations.results.products[0].offerings[0].offering_id;
-                    updateInventory.offerings[0].price = sellPrice;
+                    updateInventory.offerings[0].price = (Convert.ToDouble(sellPrice) * 1.15).ToString();
                     updateInventory.offerings[0].quantity = int.Parse(currentQty);
                     updateInventory.sku = sku;
                     updateInventoryList.Add(updateInventory);
@@ -552,7 +561,7 @@ namespace EtsyService
                 updateInventory.product_id = inventoryVariations.results.products[0].product_id;
                 updateInventory.offerings.Add(new UpdateOffering());
                 updateInventory.offerings[0].offering_id = inventoryVariations.results.products[0].offerings[0].offering_id;
-                updateInventory.offerings[0].price = sellPrice;
+                updateInventory.offerings[0].price = (Convert.ToDouble(sellPrice) * 1.15).ToString();
                 updateInventory.offerings[0].quantity = int.Parse(currentQty);
                 updateInventoryList.Add(updateInventory);
 

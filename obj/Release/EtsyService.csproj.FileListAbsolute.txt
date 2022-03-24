@@ -31,3 +31,4 @@ C:\gitlab\EtsyService\obj\Release\EtsyService.csproj.CoreCompileInputs.cache
 C:\gitlab\EtsyService\obj\Release\EtsyService.csproj.CopyComplete
 C:\gitlab\EtsyService\obj\Release\EtsyService.exe
 C:\gitlab\EtsyService\obj\Release\EtsyService.pdb
+C:\gitlab\EtsyService\obj\Release\EtsyService.csproj.AssemblyReference.cache

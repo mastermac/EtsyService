@@ -3,4 +3,7 @@
 *.pdb
 *.InstallLog
 *.txt
-.vs/EtsyService/v16/.suo
+.vs/
+bin/
+*.cache
+obj/

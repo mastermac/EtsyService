@@ -438,6 +438,27 @@
             <param name="comparer">Comparer used to determine the maximum key value.</param>
             <returns>List with the elements that share the same maximum key value.</returns>
         </member>
+        <member name="M:System.Linq.EnumerableEx.MaxByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the elements with the maximum key value by using the default comparer to compare key values.
+            </summary>
+            <typeparam name="TSource">Source sequence element type.</typeparam>
+            <typeparam name="TKey">Key type.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
+            <returns>List with the elements that share the same maximum key value.</returns>
+        </member>
+        <member name="M:System.Linq.EnumerableEx.MaxByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the elements with the minimum key value by using the specified comparer to compare key values.
+            </summary>
+            <typeparam name="TSource">Source sequence element type.</typeparam>
+            <typeparam name="TKey">Key type.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
+            <param name="comparer">Comparer used to determine the maximum key value.</param>
+            <returns>List with the elements that share the same maximum key value.</returns>
+        </member>
         <member name="M:System.Linq.EnumerableEx.Memoize``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Creates a buffer with a view over the source sequence, causing each enumerator to obtain access to all of the
@@ -528,6 +549,27 @@
             <returns>List with the elements that share the same minimum key value.</returns>
         </member>
         <member name="M:System.Linq.EnumerableEx.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the elements with the minimum key value by using the specified comparer to compare key values.
+            </summary>
+            <typeparam name="TSource">Source sequence element type.</typeparam>
+            <typeparam name="TKey">Key type.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
+            <param name="comparer">Comparer used to determine the minimum key value.</param>
+            <returns>List with the elements that share the same minimum key value.</returns>
+        </member>
+        <member name="M:System.Linq.EnumerableEx.MinByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the elements with the minimum key value by using the default comparer to compare key values.
+            </summary>
+            <typeparam name="TSource">Source sequence element type.</typeparam>
+            <typeparam name="TKey">Key type.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
+            <returns>List with the elements that share the same minimum key value.</returns>
+        </member>
+        <member name="M:System.Linq.EnumerableEx.MinByWithTies``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
             <summary>
             Returns the elements with the minimum key value by using the specified comparer to compare key values.
             </summary>
